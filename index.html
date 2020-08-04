@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 1112px;
+            height: 788px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/Asadas_Estudio_4.js"></script>
+        <script src="data/Asadas_oficinas_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[10.28859930340065,-85.88288489867831],[10.425411825728006,-85.68851254996504]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OpenTopoMap_0');
+        map.getPane('pane_OpenTopoMap_0').style.zIndex = 400;
+        var layer_OpenTopoMap_0 = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenTopoMap_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_OpenTopoMap_0;
+        map.addLayer(layer_OpenTopoMap_0);
+        map.createPane('pane_GoogleRoad_1');
+        map.getPane('pane_GoogleRoad_1').style.zIndex = 401;
+        var layer_GoogleRoad_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleRoad_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleRoad_1;
+        map.addLayer(layer_GoogleRoad_1);
+        map.createPane('pane_GoogleSatellite_2');
+        map.getPane('pane_GoogleSatellite_2').style.zIndex = 402;
+        var layer_GoogleSatellite_2 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_2',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_2;
+        map.addLayer(layer_GoogleSatellite_2);
+        map.createPane('pane_GoogleHybrid_3');
+        map.getPane('pane_GoogleHybrid_3').style.zIndex = 403;
+        var layer_GoogleHybrid_3 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleHybrid_3',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleHybrid_3;
+        map.addLayer(layer_GoogleHybrid_3);
+        function pop_Asadas_Estudio_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Nombre</strong><br />' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Asadas_Estudio_4_0() {
+            return {
+                pane: 'pane_Asadas_Estudio_4',
+                opacity: 1,
+                color: 'rgba(255,1,1,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Asadas_Estudio_4');
+        map.getPane('pane_Asadas_Estudio_4').style.zIndex = 404;
+        map.getPane('pane_Asadas_Estudio_4').style['mix-blend-mode'] = 'normal';
+        var layer_Asadas_Estudio_4 = new L.geoJson(json_Asadas_Estudio_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Asadas_Estudio_4',
+            layerName: 'layer_Asadas_Estudio_4',
+            pane: 'pane_Asadas_Estudio_4',
+            onEachFeature: pop_Asadas_Estudio_4,
+            style: style_Asadas_Estudio_4_0,
+        });
+        bounds_group.addLayer(layer_Asadas_Estudio_4);
+        map.addLayer(layer_Asadas_Estudio_4);
+        function pop_Asadas_oficinas_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>ASADA</strong><br />' + (feature.properties['ASADA'] !== null ? autolinker.link(feature.properties['ASADA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Asadas_oficinas_5_0() {
+            return {
+                pane: 'pane_Asadas_oficinas_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/gota.svg',
+            iconSize: [56.99999999999993, 56.99999999999993]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Asadas_oficinas_5');
+        map.getPane('pane_Asadas_oficinas_5').style.zIndex = 405;
+        map.getPane('pane_Asadas_oficinas_5').style['mix-blend-mode'] = 'normal';
+        var layer_Asadas_oficinas_5 = new L.geoJson(json_Asadas_oficinas_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Asadas_oficinas_5',
+            layerName: 'layer_Asadas_oficinas_5',
+            pane: 'pane_Asadas_oficinas_5',
+            onEachFeature: pop_Asadas_oficinas_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Asadas_oficinas_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Asadas_oficinas_5);
+        map.addLayer(layer_Asadas_oficinas_5);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Asadas_oficinas_5.png" /> Asadas_oficinas': layer_Asadas_oficinas_5,'<img src="legend/Asadas_Estudio_4.png" /> Asadas_Estudio': layer_Asadas_Estudio_4,"Google Hybrid": layer_GoogleHybrid_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"OpenTopoMap": layer_OpenTopoMap_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Asadas_Estudio_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Asadas_Estudio_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Asadas_Estudio_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Asadas_Estudio_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Asadas_Estudio_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Asadas_Estudio_4]);
+        });
+        </script>
+    </body>
+</html>
